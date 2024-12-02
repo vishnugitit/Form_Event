@@ -1,93 +1,47 @@
- let form = document.getElementById("form");
-    let college = document.getElementById("college");
-    let fname = document.getElementById("fname");
-    let branch = document.getElementById("branch");
-    let rollnumber = document.getElementById("rollnumber");
-    let validity = document.getElementById("validity");
-    let folder = document.getElementById("folder");
-    let pic = document.getElementById("pic");
+const form = document.getElementById("form");
+const idCardContainer = document.getElementById("id-card-container");
 
-    // form submission
-    let result = document.getElementsByTagName("p");
-    form.addEventListener("submit", (event) => {
-      event.preventDefault();
-      result[0].innerHTML = "Thanks For Your Response";
+const collegeName = document.getElementById("college-name");
+const studentPhoto = document.getElementById("student-photo");
+const studentName = document.getElementById("student-name");
+const studentBranch = document.getElementById("student-branch");
+const studentRoll = document.getElementById("student-roll");
+const studentValidity = document.getElementById("student-validity");
 
-      //   form layout
-      let layout = document.createElement("div");
-      layout.style.border = "2px solid black";
-      layout.style.borderRadius = "20px";
-    //   layout.style.height = "370px";
-      layout.style.width = "250px";
-      layout.style.margin = "40px";
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
 
-      layout.style.margin = "3px";
-      layout.style.marginLeft = "50px";
-      layout.style.background="#ebedef";
-      document.body.appendChild(layout);
+  const college = document.getElementById("college").value;
+  const name = document.getElementById("name").value;
+  const branch = document.getElementById("branch").value;
+  const roll = document.getElementById("roll").value;
+  const validity = document.getElementById("validity").value;
+  const photo = document.getElementById("photo").files[0];
 
-      // college name
-      let institute = document.createElement("h2");
+  // Set ID card details
+  collegeName.textContent = college;
+  studentName.textContent = name;
+  studentBranch.textContent = branch;
+  studentRoll.textContent = roll;
+  studentValidity.textContent = validity;
 
-      institute.innerHTML = `<a style="font-family: georgia">${college.value}</a>`;
-      institute.style.margin = "3px";
-      institute.style.color = "red";
+  // Read and set photo
+  const reader = new FileReader();
+  reader.onload = () => {
+    studentPhoto.src = reader.result;
+  };
+  reader.readAsDataURL(photo);
 
-      institute.style.fontFamily = "calibri";
+  // Display ID card
+  idCardContainer.style.display = "block";
+});
 
-      institute.style.fontWeight = "200";
-      institute.style.textAlign = "center";
-      layout.appendChild(institute);
-
-      //  photo
-      const reader = new FileReader();
-      reader.readAsDataURL(folder.files[0]);
-      reader.addEventListener("load", (e) => {
-        pic.setAttribute("src", e.target.result);
-        pic.setAttribute("height", 120);
-        pic.setAttribute("width", 100);
-        pic.style.border = "2px solid black";
-        pic.style.marginLeft = " 70px";
-        pic.style.borderRadius = "10px";
-        layout.appendChild(pic);
-      });
-      //   displaying after photo
-      reader.addEventListener("loadend", () => {
-        // Name
-        let profile = document.createElement("h2");
-        profile.innerHTML = `Name: <a style="font-family: georgia">${fname.value}</a>`;
-        profile.style.margin = "10px";
-        profile.style.fontFamily = "calibri";
-        profile.style.fontWeight = "200";
-        profile.style.textAlign = "center";
-        //   profile.style.color="red"
-        layout.appendChild(profile);
-
-        //   course
-        let course = document.createElement("h2");
-        course.innerHTML = `Branch: <a style="font-family: georgia">${branch.value}</a>`;
-        course.style.margin = "10px";
-        course.style.fontFamily = "calibri";
-        course.style.fontWeight = "200";
-        course.style.textAlign = "center";
-        layout.appendChild(course);
-
-        // rollnumber
-        let user_id = document.createElement("h2");
-        user_id.innerHTML = `Roll Number: <a style="font-family: georgia">${rollnumber.value}</a>`;
-        user_id.style.margin = "10px";
-        user_id.style.fontFamily = "calibri";
-        user_id.style.fontWeight = "200";
-        user_id.style.textAlign = "center";
-        layout.appendChild(user_id);
-
-        // validity
-        let graduation = document.createElement("h2");
-        graduation.innerHTML = `Validity: <a style="font-family: georgia">${validity.value}</a>`;
-        graduation.style.margin = "10px";
-        graduation.style.fontFamily = "calibri";
-        graduation.style.fontWeight = "200";
-        graduation.style.textAlign = "center";
-        layout.appendChild(graduation);
-      });
-    });
+function downloadIDCard() {
+  const element = document.getElementById("id-card");
+  html2canvas(element).then((canvas) => {
+    const link = document.createElement("a");
+    link.download = "ID_Card.png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+  });
+}

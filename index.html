@@ -3,39 +3,59 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="id.css">
-    <title>Student_ID</title>
-
+    <title>Responsive Graduate ID Card</title>
+    <link rel="stylesheet" href="./id.css" />
+    <style></style>
   </head>
   <body>
-    <h1>DYNAMIC_STUDENT_IDENTITY_CARD</h1>
-    <div id="format">
-      <form id="form">
-        <input type="text" id="college" placeholder="College_Name" required />
+    <h1>Responsive Graduate ID Card Generator</h1>
 
-        <input
-          type="text"
-          id="fname"
-          placeholder="Name_Of_The_Student"
-          required
-        />
-        <input type="text" id="branch" placeholder="Branch" required />
-        <input type="text" id="rollnumber" placeholder="Roll_Number" required />
-        <input
-          type="text"
-          id="validity"
-          placeholder="Year_Of_Graduation"
-          required
-        />
-        <input style="font-size: 15px;"type="file" id="folder" required />
+    <!-- Form -->
+    <form id="form">
+      <input type="text" id="college" placeholder="College Name" required />
+      <input type="text" id="name" placeholder="Student Name" required />
+      <input type="text" id="branch" placeholder="Branch" required />
+      <input type="text" id="roll" placeholder="Roll Number" required />
+      <input
+        type="text"
+        id="validity"
+        placeholder="Year of Graduation"
+        required
+      />
+      <input type="file" id="photo" accept="image/*" required />
+      <input type="submit" value="Generate ID Card" />
+    </form>
 
-        <input style="width: 100px" type="submit" />
-      </form>
+    <!-- ID Card -->
+    <div id="id-card-container" style="display: none">
+      <div class="id-card" id="id-card">
+        <h2 id="college-name">College Name</h2>
+        <img id="student-photo" src="" alt="Student Photo" />
+        <div class="details">
+          <p>
+            <span class="label">Name:</span>
+            <span class="data" id="student-name">Student Name</span>
+          </p>
+          <p>
+            <span class="label">Branch:</span>
+            <span class="data" id="student-branch">Branch</span>
+          </p>
+          <p>
+            <span class="label">Roll No:</span>
+            <span class="data" id="student-roll">Roll Number</span>
+          </p>
+          <p>
+            <span class="label">Validity:</span>
+            <span class="data" id="student-validity">Year of Graduation</span>
+          </p>
+        </div>
+      </div>
+      <button class="download-btn" onclick="downloadIDCard()">
+        Download ID Card
+      </button>
     </div>
-    <p></p>
-    <img id="pic" />
+
+    <script src="./id.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   </body>
-  <script src="id.js">
-   
-  </script>
 </html>
